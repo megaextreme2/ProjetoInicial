@@ -5,7 +5,7 @@ var saida = document.getElementById("saida-de-dados")
 var email = document.getElementById("email");
 var telefone = document.getElementById("tel");
 var cep = document.getElementById("cep");
-var logra = document.getElementById("logra");
+var logra = document.getElementById("logradouro");
 var numero = document.getElementById("numbe");
 var complemento = document.getElementById("comple");
 var bairro = document.getElementById("bar");
@@ -18,9 +18,19 @@ function alertar(event){
     //alert("Você clicou no botão!!!!" + event);
     const url = `http://viacep.com.br/ws/${cep.value}/json`;
     fetch(url)
-    .then(resposta=>resposta.json())
-    .then(dados=>alert(dados.bairro))
+    .then(function(resposta){
+        return resposta.json()
+    })
+    .then(function (dados){
+        logradouro.value = dados.logradouro;
+        cidade.value = dados.localidade;
+        estado.value = dados.uf;
+        bairro.value = dados.bairro
+    })
 
+}
+
+function saidaDeDados(){
     saida.innerText = "Nome: " + nome.value +
         "\n Email: " + email.value + "\nTelefone " + telefone.value+
         "\n CEP: " + cep.value + "\n Logradouro: " + logra.value +
